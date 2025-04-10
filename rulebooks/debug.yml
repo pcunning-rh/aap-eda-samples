@@ -1,0 +1,12 @@
+---
+- name: Debug events on an Event Stream
+  hosts: all
+  sources:
+    - name: AAP 2.5 Event Stream
+      ansible.eda.webhook:
+  rules:
+    - name: Debug Event
+      condition: event.payload is defined # As long as an event is received, we'll see it
+      enabled: true
+      action:
+        debug:

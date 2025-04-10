@@ -1,0 +1,21 @@
+---
+- name: Ensure Web Page is Available
+  hosts: all
+  sources:
+    - name: URL
+      ansible.eda.url_check:
+        urls:
+          - http://our-customer-portal.io/welcome
+        delay: 20
+  rules:
+    - name: Say the site is up
+      condition: event.url_check.status == "up"
+      action:
+        debug:
+          msg: "Web site is up"
+    - name: Restart web server
+      condition: event.url_check.status == "down"
+      action:
+        run_job_template:
+          name: Restart Customer Portal Services
+          organization: Default

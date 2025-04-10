@@ -1,0 +1,14 @@
+---
+- name: Launch Job Template from Event Stream data
+  hosts: all
+  sources:
+    - name: AAP 2.5 Event Stream
+      ansible.eda.webhook:
+  rules:
+    - name: Execute AAP Job Template
+      condition: event.payload is defined # Pass entire payload through, must enable "Prompt on Launch" for Variables on Job Template
+      enabled: true
+      action:
+        run_job_template:
+          name: "{{ jobTemplate }}"
+          organization: "{{ org }}"
