@@ -1,0 +1,57 @@
+---
+eda_projects:
+  - name: EDA Samples
+    description: A couple starter rulebooks
+    url: https://github.com/pcunning-rh/aap-eda-samples.git
+    organization: EDA Demo Content
+    tls_validation: true
+eda_credentials:
+  - name: Token Event Stream - Demo
+    description: Token Value is AA1BB2CC3ZZ9YY8XX7
+    credential_type: 'Token Event Stream'
+    organization: EDA Demo Content
+    inputs:
+      token: AA1BB2CC3ZZ9YY8XX7
+eda_event_streams:
+  - name: Debug Token Event Stream - Demo
+    description: Basic validation of Event Streams
+    organization: EDA Demo Content
+    credential_name: Token Event Stream - Demo
+    forward_events: true
+eda_rulebook_activations:
+  - name: Debug Incoming Requests from Event Stream - Demo
+    description: Basic validation of Event Streams
+    project: EDA Samples
+    organization: EDA Demo Content
+    rulebook: debug.yml
+    decision_environment: Automation Hub Default Decision Environment
+    enabled: true
+    state: present
+    restart_policy: always
+    event_streams:
+      - event_stream: Debug Token Event Stream - Demo
+        source_name: AAP 2.5 Event Stream
+  - name: URL Check Good - Demo
+    description: URL Source Basic Up/Down Checking - Demo
+    project: EDA Samples
+    organization: EDA Demo Content
+    rulebook: urlcheck.yml
+    decision_environment: Automation Hub Default Decision Environment
+    enabled: true
+    state: present
+    restart_policy: always
+    extra_vars:
+      url: 'https://google.com/'
+      delay_seconds: 300
+  - name: URL Check Bad - Demo
+    description: URL Source Basic Up/Down Checking - Demo
+    project: EDA Samples
+    organization: EDA Demo Content
+    rulebook: urlcheck.yml
+    decision_environment: Automation Hub Default Decision Environment
+    enabled: true
+    state: present
+    restart_policy: always
+    extra_vars:
+      url: 'https://an-unavailable-domain.com'
+      delay_seconds: 300
