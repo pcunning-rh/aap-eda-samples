@@ -1,21 +1,23 @@
 ---
-- name: Ensure Web Page is Available
+- name: Check Availability of Website
   hosts: all
   sources:
-    - name: URL
+    - name: URL Checking
       ansible.eda.url_check:
         urls:
-          - http://our-customer-portal.io/welcome
-        delay: 20
+          - "{{ url }}"
+        delay: "{{ delay_seconds }}"
   rules:
     - name: Say the site is up
       condition: event.url_check.status == "up"
       action:
         debug:
-          msg: "Web site is up"
-    - name: Restart web server
+          msg: "The site is up"
+    - name: Say the site is down # Enable action later to run a job template
       condition: event.url_check.status == "down"
       action:
-        run_job_template:
-          name: Restart Customer Portal Services
-          organization: Default
+        debug:
+          msg: "The site is down"
+#         run_job_template:
+#           name: "{{ jobTemplate }}"
+#           organization: "{{ org }}"
