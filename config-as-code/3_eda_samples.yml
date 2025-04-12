@@ -1,7 +1,7 @@
 ---
 eda_projects:
   - name: EDA Samples
-    description: A couple starter rulebooks
+    description: A couple starter rulebooks for basic functional validation
     url: https://github.com/pcunning-rh/aap-eda-samples.git
     organization: EDA Demo Content
     tls_validation: true
@@ -11,16 +11,24 @@ eda_credentials:
     credential_type: 'Token Event Stream'
     organization: EDA Demo Content
     inputs:
-      token: AA1BB2CC3ZZ9YY8XX7
+      token: AA1BB2CC3ZZ9YY8XX7 # notsecret
+  - name: AAP Controller - Full Admin for Demo Purposes Only
+    description: Authentication for Job Template Actions - Demo
+    credential_type: 'Red Hat Ansible Automation Platform'
+    organization: EDA Demo Content
+    inputs:
+      username: "{{ aap_username }}"
+      password: "{{ aap_password }}"
+      host: "{{ aap_hostname }}/api/controller"
 eda_event_streams:
   - name: Debug Token Event Stream - Demo
-    description: Basic validation of Event Streams
+    description: Basic validation of Event Streams - Demo
     organization: EDA Demo Content
     credential_name: Token Event Stream - Demo
     forward_events: true
 eda_rulebook_activations:
   - name: Debug Incoming Requests from Event Stream - Demo
-    description: Basic validation of Event Streams
+    description: Basic validation of Event Streams - Demo
     project: EDA Samples
     organization: EDA Demo Content
     rulebook: debug.yml
@@ -28,6 +36,22 @@ eda_rulebook_activations:
     enabled: true
     state: present
     restart_policy: always
+    event_streams:
+      - event_stream: Debug Token Event Stream - Demo
+        source_name: AAP 2.5 Event Stream
+  - name: Launch Job Template from Event Stream - Demo
+    description: Event Streams triggering automation templates - Demo
+    project: EDA Samples
+    organization: EDA Demo Content
+    eda_credentials: AAP Controller - Full Admin for Demo Purposes Only
+    rulebook: jobtemplate.yml
+    decision_environment: Automation Hub Default Decision Environment
+    enabled: true
+    state: present
+    restart_policy: always
+    extra_vars:
+      jobTemplate: Debug EDA Webhook Message - Demo
+      org: Default
     event_streams:
       - event_stream: Debug Token Event Stream - Demo
         source_name: AAP 2.5 Event Stream
