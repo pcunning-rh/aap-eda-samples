@@ -1,13 +1,15 @@
 ---
 aap_organizations:
   - name: EDA Demo Content
-    description: For EDA Operational Validation
+    description: "For EDA Operational Validation"
+    state: "{{ eda_demo_content_state | default('present') }}"
 controller_projects:
   - name: EDA Samples
     description: Sample Content for EDA Validation
     organization: Default
     scm_type: git
     scm_url: https://github.com/pcunning-rh/aap-eda-samples.git
+    state: "{{ eda_demo_content_state | default('present') }}"
 controller_templates:
   - name: Debug EDA Webhook Message - Demo
     description: To be triggered via EDA Rulebook Activation - Demo
@@ -16,3 +18,4 @@ controller_templates:
     playbook: playbooks/debug_webhook.yml
     ask_variables_on_launch: true
     inventory: Demo Inventory
+    state: "{{ eda_demo_content_state | default('present') }}"
