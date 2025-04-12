@@ -1,0 +1,18 @@
+---
+aap_organizations:
+  - name: EDA Demo Content
+    description: For EDA Operational Validation
+controller_projects:
+  - name: EDA Samples
+    description: Sample Content for EDA Validation
+    organization: Default
+    scm_type: git
+    scm_url: https://github.com/pcunning-rh/aap-eda-samples.git
+controller_templates:
+  - name: Debug EDA Webhook Message - Demo
+    description: To be triggered via EDA Rulebook Activation - Demo
+    organization: Default
+    project: EDA Samples
+    playbook: playbooks/debug_webhook.yml
+    ask_variables_on_launch: true
+    inventory: Demo Inventory
