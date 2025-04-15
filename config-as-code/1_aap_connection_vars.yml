@@ -1,5 +1,5 @@
 ---
-aap_hostname:  # URL for AAP 2.5
+aap_hostname:  # URL for AAP 2.5, no trailing slash, ex: https://aap.example.com 
 aap_username:  # AAP User with Administrative Rights
 aap_password:  # Password is required for the EDA collections
 aap_validate_certs: true # Default true, set to false as desired to ignore AAP certificates
