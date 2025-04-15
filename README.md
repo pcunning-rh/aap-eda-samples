@@ -4,6 +4,8 @@ This repository contains sample rulebooks to provide validation of Event-Driven 
 ## Usage
 To make deployment as easy as possible, variable files compatible with [`infra.aap_configuration`](https://github.com/redhat-cop/infra.aap_configuration) are available in the [config-as-code](./config-as-code/) directory. Please ensure you have the required [dependencies](https://github.com/redhat-cop/infra.aap_configuration?tab=readme-ov-file#requirements) installed.
 
+The included variables assume you have a typical AAP 2.5 deployment with the following resources available: Automation Hub Default Decision Environment, Default Organization, and Demo Inventory.
+
 Configure the `aap_hostname`, `aap_username`, and `aap_password` variables either separately or in the [`1_aap_connection_vars.yml`](./config-as-code/1_aap_connection_vars.yml) file. 
 
 > [!IMPORTANT]
@@ -12,7 +14,9 @@ Configure the `aap_hostname`, `aap_username`, and `aap_password` variables eithe
 ## Deployment
 Set the `eda_demo_content_state` variable to `present`.
 
-Ex: `ansible-playbook infra.aap_configuration.configure_aap.yml -e aap_configs_dir=./aap-eda-samples/config-as-code/ -e eda_demo_content_state=present`
+```console
+ansible-playbook infra.aap_configuration.configure_aap.yml -e aap_configs_dir=~/aap-eda-samples/config-as-code/ -e eda_demo_content_state=present
+```
 
 Upon deployment, the following resources are created:
 | Name | Type | Component |
@@ -50,4 +54,6 @@ To use the script:
 ## Removal
 Set the `eda_demo_content_state` variable to `absent`. All previously created resources are removed.
 
-Ex: `ansible-playbook infra.aap_configuration.configure_aap.yml -e aap_configs_dir=./aap-eda-samples/config-as-code/ -e eda_demo_content_state=absent`
+```console
+ansible-playbook infra.aap_configuration.configure_aap.yml -e aap_configs_dir=~/aap-eda-samples/config-as-code/ -e eda_demo_content_state=absent
+```
