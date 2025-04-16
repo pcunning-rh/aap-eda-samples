@@ -68,7 +68,7 @@ eda_rulebook_activations:
     enabled: true
     restart_policy: always
     extra_vars:
-      url: 'https://google.com/'
+      url: "{{ aap_hostname }}"
       delay_seconds: 300
     state: "{{ eda_demo_content_state | default('present') }}"
   - name: URL Check Bad - Demo
@@ -80,6 +80,6 @@ eda_rulebook_activations:
     enabled: true
     restart_policy: always
     extra_vars:
-      url: 'https://an-unavailable-domain.com'
+      url: '{{ aap_hostname }}/api/nothing-to-see-here/'
       delay_seconds: 300
     state: "{{ eda_demo_content_state | default('present') }}"
